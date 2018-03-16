@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RPS Multiplayer</title>
+    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src = "assets/javascript/game.js"></script>
+    <link rel="stylesheet" type ="text/css" href ="assets/css/reset.css">
+    <link rel="stylesheet" type ="text/css" href ="assets/css/styles.css">
+
+</head>
+<body>
+    <div class = "container">
+        <header>
+            <h1>ROCK PAPER SCISSORS!</h1>
+        </header>
+        <div id = "game-messages">
+            <form id = "player-start"> 
+                <input type = "text" id = "player-name" placeholder= "Name">
+                <input type="submit" value="Play!" id= "start-button">
+            </form>
+        </div>
+        <div id = "game-interface">
+            <div class = "square" id = "Player-1">
+                    <div id = "player-1-name"></div>
+                    <div id ="player-1-choices"></div>
+                    <div id = "player-1-score"></div>
+            </div>
+            <div class = "square" id = "fill">
+                <h2>R | P | S</h2>
+            </div>
+            <div class = "square" id = "Player-2">
+                    <div id = "player-2-name"></div>
+                    <div id ="player-2-choices"></div>
+                    <div id = "player-2-score"></div>
+            </div>
+        </div>
+        <div id = "chatbox">
+            <div id = "message-display">
+                <p>Shit-talking goes here!</p>
+            </div>
+            <form id = "chat-message">
+                <input type = "text" id = "message-type">
+                <input type = "button" value= "Send" id = "send-button">
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>
