@@ -30,7 +30,7 @@ $(document).ready(function () {
     }
 
     var turn = 0;
-    
+
     var chat = {};
 
     //Starts game:
@@ -214,17 +214,46 @@ $(document).ready(function () {
         players[1].losses++;
     }
 
-
     //Chat Box
-    var message = "";
+    function enableChat() {
+        var message = "";
+        $("#send-button").on("click", function (event) {
+            event.preventDefault()
+            console.log('chatted')
+            if ($("#game-interface").attr('player1')) {
+                message = $("#message-type").val();
+                database.ref().child('chat').push({
+                    user: players[1].name,
+                    message: message
+                });
+            }
+            if ($("#game-interface").attr('player2')) {
 
-    $("#send-button").on("click", function (event) {
-        event.preventDefault()
-        console.log("clicked")
-        message = players[1].name + " " + $("#message-type").val();
-        console.log(message)
-        database.ref().child('chat').push({message });
-    })
+                console.log('chatted')
+                message = $("#message-type").val();
+                database.ref().child('chat').push({
+                    user: players[2].name,
+                    message: message
+                });
+            }
+            $("#message-type").val('');
+        });
+    }
+
+    enableChat();
+
+    //if player2 sends message
+
+    // Updates chatbox .on("child_added"
+    database.ref().child('chat').orderByChild("dateAdded").on("child_added", function (snapshot) {
+
+        $("#message-display").append(`<p><span class="user">${snapshot.val().user}:</span> ${snapshot.val().message}</p>`);
+
+
+        // Handle the errors
+    }, function (errorObject) {
+        console.log("Errors handled: " + errorObject.code);
+    });
 
 });
 
