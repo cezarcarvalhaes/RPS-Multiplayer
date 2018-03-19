@@ -89,7 +89,7 @@ $(document).ready(function () {
             console.log(players)
             $("#player-name").remove();
             $("#start-button").remove();
-            $("#player-start").prepend('<input type = "text" id = "player-name2" placeholder= "Name"><input type="submit" value="Play!" id= "start-button2">')
+            $("#player-start").prepend('<input type = "text" id = "player-name2" placeholder= "Name"><button class="btn waves-effect waves-light cyan lighten-2" type="submit" id="start-button2">Play!</button>')
             $("#player-1-name").html(`<h3>${players[1].name}</h3>`)
 
             //Saves to player2 
