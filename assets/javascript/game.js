@@ -43,10 +43,11 @@ $(document).ready(function () {
         if (snapshot.child("players/2").exists() && snapshot.child("players/1").exists()) {
             players = snapshot.val().players;
             turn = snapshot.val().turn;
-            $("#player-1-name").html(`<h3>${players[1].name}</h3>`)
-            $("#player-2-name").html(`<h3>${players[2].name}</h3>`)
-            $("#player-1-score").html(`<h3>Wins: ${players[1].wins} Losses: ${players[1].losses}</h3>`)
-            $("#player-2-score").html(`<h3>Wins: ${players[2].wins} Losses: ${players[2].losses}</h3>`)
+            $("#game-interface").show();
+            $("#player-1-name").html(`<h4>${players[1].name}</h4>`)
+            $("#player-2-name").html(`<h4>${players[2].name}</h4>`)
+            $("#player-1-score").html(`<p>Wins: ${players[1].wins} Losses: ${players[1].losses}</p>`)
+            $("#player-2-score").html(`<p>Wins: ${players[2].wins} Losses: ${players[2].losses}</p>`)
             console.log("both!")
             playGame();
         }
@@ -54,7 +55,9 @@ $(document).ready(function () {
         //Checks if only player2 is saved
         else if (!snapshot.child("players/1").exists() && snapshot.child("players/2").exists()) {
             console.log("Player2 exists; player1 does not exist")
-            $("#game-messages").append('<h3>Waiting on Player 2 to connnect</h3>')
+            if ($("#game-interface").attr('player2')) {
+                $("#game-messages").append('<h4>Waiting on Player 1 to connnect</h4> <div class="progress"><div class="indeterminate"></div></div>')
+            }
             //sets local object equal to firebase value
             players[2] = snapshot.val().players[2];
             $("#start-button").on("click", function (event) {
@@ -77,7 +80,10 @@ $(document).ready(function () {
         else if (snapshot.child("players/1").exists()) {
             console.log(snapshot.val().players[1].name)
             console.log("player1 exists")
-            $("#game-messages").append('<h3>Waiting on Player 2 to connnect</h3>')
+            if ($("#game-interface").attr('player1')) {
+                console.log("player1 exists, waiting on 2")
+                $("#game-messages").append('<h4>Waiting on Player 2 to connnect</h4>  <div class="progress"><div class="indeterminate"></div></div> ')
+            }
             //sets local object equal to firebase value
             players[1] = snapshot.val().players[1];
             console.log(players)
@@ -89,6 +95,7 @@ $(document).ready(function () {
             //Saves to player2 
             $("#start-button2").on("click", function (event) {
                 event.preventDefault()
+                $("#game-interface").show();
                 $("#game-interface").attr('player2', 'two')
                 players[2].name = $("#player-name2").val();
                 console.log(players)
@@ -109,8 +116,10 @@ $(document).ready(function () {
         //If no players are saved in firebase
         else {
             console.log("player1 does not exist")
+            $("#game-interface").hide()
             $("#start-button").on("click", function (event) {
                 event.preventDefault()
+                $("#game-interface").show();
                 players[1].name = $("#player-name").val();
                 database.ref().set({
                     players: { 1: players[1] },
@@ -118,6 +127,7 @@ $(document).ready(function () {
                 $("#game-interface").attr('player1', 'one')
                 $("#player-start").remove();
                 $("#game-messages").append("Welcome " + players[1].name + "! You are Player 1")
+                $("#game-messages").append('<h4>Waiting on Player 2 to connnect</h4>  <div class="progress"><div class="indeterminate"></div></div> ')
             })
         }
 
@@ -142,37 +152,36 @@ $(document).ready(function () {
             d1.onDisconnect().set('true');
         }
 
-        console.log(snapshot.val().disconnected)
         //messages on disconnect
-        if (snapshot.val().disconnected == 'true') {
-            console.log(snapshot.val().disconnected)
-            if ($("#game-interface").attr("player1")) {
-                $("#message-display").append(`<p><span class="disconnect">${players[2].name} disconnected</span></p>`);
-            }
-            if ($("#game-interface").attr("player2")) {
-                $("#message-display").append(`<p><span class="disconnect">${players[1].name} disconnected</span></p>`);
+        if (snapshot.child('disconnected').exists()) {
+            if (snapshot.val().disconnected == 'true') {
+                if ($("#game-interface").attr("player1")) {
+                    $("#message-display").append(`<p><span class="disconnect">${players[2].name} disconnected</span></p>`);
+                }
+                if ($("#game-interface").attr("player2")) {
+                    $("#message-display").append(`<p><span class="disconnect">${players[1].name} disconnected</span></p>`);
+                }
             }
         }
 
     });
 
     function playGame() {
-        console.log('r p s!')
         $("#game-messages").empty();
 
         //Player1 turn
 
         if (turn === 1) {
             console.log("player 1 turn")
-            $("#player-2-choices").empty();
             $("#game-messages").html("<h3>" + players[1].name + "'s turn!</h3>")
             //Only fire's on Player1's screen
             if ($("#game-interface").attr("player1")) {
                 console.log("you are player1")
-                $("#player-1-choices").html('<h3 class = "choice1">Rock</h3> <h3 class = "choice1">Paper</h3> <h3 class = "choice1">Scissors</h3>')
+                $("#player-1-choices").html('<p class = "btn btn-large pulse choice1 cyan lighten-2">Rock</p> <p class = " btn btn-large pulse choice1 cyan lighten-2">Paper</p> <p class = "btn btn-large pulse choice1 cyan lighten-2">Scissors</p>')
                 $(document).on("click", ".choice1", function () {
                     players[1].selection = $(this).text();
                     console.log(players[1].selection)
+                    $("#player-1-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[1].selection}</p>`)
                     turn = 2
                     console.log(turn)
                     database.ref().set({
@@ -187,15 +196,15 @@ $(document).ready(function () {
 
         //Player 2 turn
         if (turn === 2) {
-            $("#player-1-choices").empty();
             $("#game-messages").html("<h3>" + players[2].name + "'s turn!</h3>")
             console.log("player 2 turn")
             //Only fire's on Player2's screen
             if ($("#game-interface").attr("player2")) {
-                $("#player-2-choices").html('<h3 class = "choice2">Rock</h3> <h3 class = "choice2">Paper</h3> <h3 class = "choice2">Scissors</h3>')
+                $("#player-2-choices").html('<p class = "btn btn-large pulse choice2 cyan lighten-2">Rock</p> <p class = "btn btn-large pulse choice2 cyan lighten-2">Paper</p> <p class = "btn btn-large pulse choice2 cyan lighten-2">Scissors</p>')
                 $(document).on("click", ".choice2", function () {
                     players[2].selection = $(this).text();
                     console.log(players[2].selection)
+                    $("#player-2-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[2].selection}</p>`)
                     turn = 3
                     database.ref().set({
                         players: players,
@@ -242,14 +251,13 @@ $(document).ready(function () {
             }
             if (players[1].selection === players[2].selection) {
                 console.log("TIED!")
-                $("#fill").html('<h3>Tie Game!</h3>')
+                $("#game-messages").html('<h3>Tie Game!</h3>')
                 setTimeout(nextRound, 4000);
             }
         }
     }
 
     function nextRound() {
-        $("#fill").empty();
         turn = 1
         database.ref().set({
             players: players,
@@ -258,13 +266,17 @@ $(document).ready(function () {
     }
 
     function playerOneWins() {
-        $("#fill").html(`<h3>${players[1].name} wins!`);
+        $("#game-messages").html(`<h3>${players[1].name} wins!`);
+        $("#player-1-choices").html(`<p class = btn btn-large cyan lighten-2>${players[1].selection}</p>`)
+        $("#player-2-choices").html(`<p class = btn btn-large cyan lighten-2>${players[2].selection}</p>`)
         players[1].wins++;
         players[2].losses++;
     }
 
     function playerTwoWins() {
-        $("#fill").html(`<h3>${players[2].name} wins!`);
+        $("#game-messages").html(`<h3>${players[2].name} wins!`);
+        $("#player-1-choices").html(`<p class = btn btn-large cyan lighten-2>${players[1].selection}</p>`)
+        $("#player-2-choices").html(`<p class = btn btn-large cyan lighten-2>${players[2].selection}</p>`)
         players[2].wins++;
         players[1].losses++;
     }

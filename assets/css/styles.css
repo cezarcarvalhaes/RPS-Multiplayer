@@ -10,10 +10,8 @@ h2 {
 
 header {
     text-align: center;
-}
-
-.container {
-    margin: 1%;
+    width: 100%;
+    padding: 2%;
 }
 
 #game-messages {
@@ -55,15 +53,27 @@ header {
     width: 60%;
 }
 
-#message-type {
-    border: 2px solid #666666;
-    border-radius: 5px;
-    width: 80%;
-}
 
 .square {
-    height: 200px;
+    height: auto;
     border: 2px solid #666666;
     border-radius: 5px;
-    width: 25%;
+    text-align: center;
+    margin: 1%;
+}
+
+#player-1-score {
+    margin: .8em;
+    color: #ef5350;
+    font-size: 18px;
+}
+
+#player-2-score {
+    margin: .8em;
+    color: #ef5350;
+    font-size: 18px;
+}
+
+#message-type {
+    float: left;
 }

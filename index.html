@@ -1,53 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>RPS Multiplayer</title>
+    <!-- So many linked scripts! -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src = "assets/javascript/game.js"></script>
-    <link rel="stylesheet" type ="text/css" href ="assets/css/reset.css">
-    <link rel="stylesheet" type ="text/css" href ="assets/css/styles.css">
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
 </head>
+
 <body>
-    <div class = "container">
-        <header>
-            <h1>ROCK PAPER SCISSORS!</h1>
-        </header>
-        <div id = "game-messages">
-            <form id = "player-start"> 
-                <input type = "text" id = "player-name" placeholder= "Name">
-                <input type="submit" value="Play!" id= "start-button">
-            </form>
-        </div>
-        <div id = "game-interface">
-            <div class = "square" id = "Player-1">
-                    <div id = "player-1-name"></div>
-                    <div id ="player-1-choices"></div>
-                    <div id = "player-1-score"></div>
-            </div>
-            <div class = "square" id = "fill">
-                <h2>R | P | S</h2>
-            </div>
-            <div class = "square" id = "Player-2">
-                    <div id = "player-2-name"></div>
-                    <div id ="player-2-choices"></div>
-                    <div id = "player-2-score"></div>
+    <header class="cyan lighten-3">
+        <h1>ROCK PAPER SCISSORS!</h1>
+        <i class="far fa-hand-rock fa-5x"></i>
+        <i class="far fa-hand-paper fa-5x"></i>
+        <i class="far fa-hand-scissors fa-5x"></i>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div id="game-messages">
+                    <form id="player-start">
+                        <input type="text" id="player-name" placeholder="Name">
+                        <button class="btn waves-effect waves-light cyan lighten-2" type="submit" id="start-button">Play!</button>
+                    </form>
+                </div>
             </div>
         </div>
-        <div id = "chatbox">
-            <div id = "message-display">
-                <p>Shit-talking goes here!</p>
+        <div id="game-interface" class="row">
+            <div class="col s12 m6 square" id="Player-1">
+                <div id="player-1-name"></div>
+                <div id="player-1-choices"></div>
+                <div id="player-1-score"></div>
             </div>
-            <form id = "chat-message">
-                <input type = "text" id = "message-type">
-                <input type = "submit" value= "Send" id = "send-button">
+            <div class="col s12 m6 square" id="Player-2">
+                <div id="player-2-name"></div>
+                <div id="player-2-choices"></div>
+                <div id="player-2-score"></div>
+            </div>
+        </div>
+        <div id="chatbox">
+            <div id="message-display">
+                <p></p>
+            </div>
+            <form id="chat-message">
+                <input type="text" id="message-type">
+                <button id="send-button" class="btn waves-effect waves-light cyan lighten-2 right" type="submit" name="action">
+                    Send
+                </button>
             </form>
         </div>
     </div>
-    
+
 </body>
+
 </html>
