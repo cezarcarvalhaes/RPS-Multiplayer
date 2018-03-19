@@ -252,6 +252,8 @@ $(document).ready(function () {
             if (players[1].selection === players[2].selection) {
                 console.log("TIED!")
                 $("#game-messages").html('<h3>Tie Game!</h3>')
+                $("#player-1-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[1].selection}</p>`)
+                $("#player-2-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[2].selection}</p>`)
                 setTimeout(nextRound, 4000);
             }
         }
@@ -267,16 +269,16 @@ $(document).ready(function () {
 
     function playerOneWins() {
         $("#game-messages").html(`<h3>${players[1].name} wins!`);
-        $("#player-1-choices").html(`<p class = btn btn-large cyan lighten-2>${players[1].selection}</p>`)
-        $("#player-2-choices").html(`<p class = btn btn-large cyan lighten-2>${players[2].selection}</p>`)
+        $("#player-1-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[1].selection}</p>`)
+        $("#player-2-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[2].selection}</p>`)
         players[1].wins++;
         players[2].losses++;
     }
 
     function playerTwoWins() {
         $("#game-messages").html(`<h3>${players[2].name} wins!`);
-        $("#player-1-choices").html(`<p class = btn btn-large cyan lighten-2>${players[1].selection}</p>`)
-        $("#player-2-choices").html(`<p class = btn btn-large cyan lighten-2>${players[2].selection}</p>`)
+        $("#player-1-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[1].selection}</p>`)
+        $("#player-2-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[2].selection}</p>`)
         players[2].wins++;
         players[1].losses++;
     }
