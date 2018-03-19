@@ -74,6 +74,10 @@ header {
     font-size: 18px;
 }
 
-#message-type {
-    float: left;
+.user {
+    color: #1a237e;
+}
+
+.disconnected {
+    color: #b71c1c;
 }
