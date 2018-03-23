@@ -81,3 +81,7 @@ header {
 .disconnect {
     color: #b71c1c;
 }
+
+#message-display {
+    overflow-y: scroll;
+}

@@ -311,12 +311,12 @@ $(document).ready(function () {
 
     enableChat();
 
-    //if player2 sends message
 
     // Updates chatbox .on("child_added"
     database.ref().child('chat').orderByChild("dateAdded").on("child_added", function (snapshot) {
         console.log(snapshot.val())
         $("#message-display").append(`<p><span class="user">${snapshot.val().user}:</span> ${snapshot.val().message}</p>`);
+        $('#message-display').scrollTop($('#message-display')[0].scrollHeight)
 
 
         // Handle the errors
