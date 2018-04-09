@@ -224,7 +224,7 @@ $(document).ready(function () {
                 setTimeout(nextRound, 4000);
 
             }
-            if (players[1].selection === "Paper" && players[2].selection === "Rock") {
+            else if (players[1].selection === "Paper" && players[2].selection === "Rock") {
                 console.log("player1 wins")
                 playerOneWins();
                 setTimeout(nextRound, 4000);
