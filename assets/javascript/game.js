@@ -229,27 +229,27 @@ $(document).ready(function () {
                 playerOneWins();
                 setTimeout(nextRound, 4000);
             }
-            if (players[1].selection === "Scissors" && players[2].selection === "Paper") {
+            else if (players[1].selection === "Scissors" && players[2].selection === "Paper") {
                 console.log("player1 wins")
                 playerOneWins();
                 setTimeout(nextRound, 4000);
             }
-            if (players[1].selection === "Rock" && players[2].selection === "Paper") {
+            else if (players[1].selection === "Rock" && players[2].selection === "Paper") {
                 console.log("player2 wins")
                 playerTwoWins();
                 setTimeout(nextRound, 4000);
             }
-            if (players[1].selection === "Paper" && players[2].selection === "Scissors") {
+            else if (players[1].selection === "Paper" && players[2].selection === "Scissors") {
                 console.log("player2 wins")
                 playerTwoWins();
                 setTimeout(nextRound, 4000);
             }
-            if (players[1].selection === "Scissors" && players[2].selection === "Rock") {
+            else if (players[1].selection === "Scissors" && players[2].selection === "Rock") {
                 console.log("player2 wins")
                 playerTwoWins();
                 setTimeout(nextRound, 4000);
             }
-            if (players[1].selection === players[2].selection) {
+            else if (players[1].selection === players[2].selection) {
                 console.log("TIED!")
                 $("#game-messages").html('<h3>Tie Game!</h3>')
                 $("#player-1-choices").html(`<p class = "btn btn-large cyan lighten-2">${players[1].selection}</p>`)
